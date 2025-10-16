@@ -1,4 +1,4 @@
-# BRFSS 2023 — Risk Modeling & Insights (work in progress)
+# BRFSS 2023 — Risk Modeling & Insights ( work in progress )
 
 End-to-end analysis of the CDC **Behavioral Risk Factor Surveillance System (BRFSS) 2023** microdata to build interpretable risk models and actionable insights.
 
@@ -34,13 +34,16 @@ DATA_DIR = "/path/to/brfss2023"
 jupyter lab   # open BRFSS2023.ipynb and Run All
 ```
 
-## Results (populate from your notebook)
-- **Target/outcome:** `<your label>`
-- **Best model:** `<ModelName>`
-- **Test ROC-AUC / PR-AUC:** `<0.XX> / <0.XX>`
-- **Operating threshold & rationale:** `<e.g., F-beta / Youden J / cost>`
-- **Top drivers (SHAP):** `<feat1>, <feat2>, <feat3>`
-- **Calibration/Brier (optional):** `<value>`
+## Results
+- **Target/outcome:** `CHCOCNC1` (self-reported cancer diagnosis; Yes=1, No=0)
+- **Best model:** `Logistic Regression` (slightly higher AUPRC; equal ROC-AUC to XGB)
+- **Test ROC-AUC / PR-AUC:** `0.799 / 0.217` (LogReg) — `0.799 / 0.215` (XGB)
+- **Operating threshold & rationale:** Threshold chosen to achieve ~0.75 **recall** on validation.
+  - LogReg `thr ≈ 0.0936` → Precision `0.184`, Recall `0.741`
+  - XGB `thr ≈ 0.0844` → Precision `0.180`, Recall `0.773`
+- **Base prevalence (weighted, test):** `~7.9%` → **AUPRC lift** ≈ `2.75×` (LogReg), `2.74×` (XGB)
+- **Top drivers (model-based):** `_AGE_G` (older age bands), `_DRDXAR2` (arthritis diagnosis status), `_RACEPRV` (race category); also signal from `_SEX` and `_CHLDCNT`.
+
 
 ## Notes & Assumptions
 - Survey **raking weights** retained for reporting; model training may be unweighted—report population metrics with weights where relevant.
