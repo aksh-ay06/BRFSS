@@ -1,0 +1,21 @@
+# Ignore files larger than 20 MB
+*.csv
+*.xlsx
+*.zip
+*.tar.gz
+*.7z
+*.rar
+*.iso
+*.dmg
+*.exe
+*.msi
+*.bin
+*.dat
+*.db
+*.sqlite
+
+# Data files
+data/
+datasets/
+downloads/
+temp/
